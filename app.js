@@ -21,6 +21,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(expressLayouts);
 app.use(bodyParser.json());
+app.use(session({
+  cookie: {maxAge: 6000},
+  secret: 'secret',
+  resave: true,
+  saveUninitialized:true,
+}));
+app.use(flash()); 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes

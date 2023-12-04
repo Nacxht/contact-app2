@@ -13,17 +13,17 @@ const getContactData = () => {
         pool.getConnection((err, connection) => {
             if (err) throw err;
             
-        // Melakukan query
+        // Query
             connection.query(
                 `SELECT * FROM contact_list;`,
                 (err, results) => {
-                    // Menutup koneksi
+                    // Close connection
                     connection.release();
                     
-                    // Mengecek jika terjadi error
+                    // Error checking
                     if (err) throw err;
                     
-                    // Mengembalikan hasil
+                    // Return the result
                     resolve(results)
                 }
             );
@@ -32,6 +32,26 @@ const getContactData = () => {
 }
 
 
+// Add contact
+const addContactData = (data) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            // Close connection
+            connection.query(
+                `INSERT INTO contact_list VALUES
+                VALUES (${null}, '${data.ct_name}', '${data.ct_phonenum}', '${data.ct_email}', '${data.ct_address}');`,
+                (err, results) => {
+                    connection.release();
+
+                    if(err) throw err;
+                    resolve('Contact successfully added!');
+                }
+            )
+        })
+    })
+}
+
 module.exports = {
-    getContactData
+    getContactData,
+    addContactData
 }

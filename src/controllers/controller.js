@@ -1,5 +1,6 @@
-const {getContactData} = require('./contacts-controller')
+const {getContactData, addContactData} = require('./contacts-controller')
 
 module.exports = {
-    getContactData
+    getContactData,
+    addContactData
 };
