@@ -7,7 +7,7 @@ pool.on('error', (err) => {
 });
 
 
-// Mendapatkan data dari tabel contact
+// Get all data from contacts table
 const getContactData = () => {
     return new Promise((resolve, reject) => {
         pool.getConnection((err, connection) => {

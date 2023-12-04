@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "start:dev": "nodemon ./bin/www",
     "tailwind:css": "npx tailwindcss -i ./public/css/style.css -o ./public/css/tailwind.css --watch",
-    "start:tailwind": "concurrently \"npm run tailwind:css\" \"npm run start:dev\""
+    "start:tailwind": "concurrently \"npm run tailwind:css\" \"npm run start:dev\"",
+    "dev": "npm run start:tailwind"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
