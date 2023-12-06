@@ -6,7 +6,8 @@ const logger = require('morgan');
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const flash = require('connect-flash')
+const flash = require('connect-flash');
+const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 const contactsRouter = require('./routes/contacts');
@@ -29,7 +30,8 @@ app.use(session({
   resave: true,
   saveUninitialized:true,
 }));
-app.use(flash()); 
+app.use(flash());
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
