@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const flash = require('connect-flash')
 
 const indexRouter = require('./routes/index');
 const contactsRouter = require('./routes/contacts');

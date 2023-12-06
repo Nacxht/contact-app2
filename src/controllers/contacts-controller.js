@@ -33,20 +33,24 @@ const getContactData = () => {
 
 
 // Add contact
-const addContactData = (data) => {
+addContactData = (data) => {
     return new Promise((resolve, reject) => {
         pool.getConnection((err, connection) => {
-            // Close connection
-            connection.query(
-                `INSERT INTO contact_list VALUES
-                VALUES (${null}, '${data.ct_name}', '${data.ct_phonenum}', '${data.ct_email}', '${data.ct_address}');`,
-                (err, results) => {
-                    connection.release();
+            try{
+                // Close connection
+                connection.query(
+                    `INSERT INTO contact_list (ct_name, ct_phonenum, ct_email, ct_address) VALUES (?, ?, ?, ?)`,
+                    [data.ct_name, data.ct_phonenum, data.ct_email, data.ct_address],
+                    (err, results) => {
+                        connection.release();
 
-                    if(err) throw err;
-                    resolve('Contact successfully added!');
-                }
-            )
+                        if(err) throw err;
+                        resolve({message: 'Contact successfully added!'});
+                    }
+                )
+            } catch (err) {
+                console.error(err);
+            }
         })
     })
 }

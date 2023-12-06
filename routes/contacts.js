@@ -4,14 +4,15 @@ const {getContactData, addContactData} = require('../src/controllers/controller'
 
 
 // Page: Contact list
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
   try{
     const contactData = await getContactData();
 
     res.render('contacts', {
       title: "Contact List",
       layout: 'layouts/main-layout',
-      contacts: contactData
+      contacts: contactData,
+      msg: req.flash('msg')
   });
   } catch (err) {
     console.error(err);
@@ -21,7 +22,7 @@ router.get('/', async (req, res, next) => {
 
 
 // Page: Add contact
-router.get('/add', (req, res, next) => {
+router.get('/add', (req, res) => {
   res.render('add-contact', {
     title: 'Add Contact',
     layout: 'layouts/main-layout'
@@ -30,15 +31,27 @@ router.get('/add', (req, res, next) => {
 
 
 // Process: Add contact
-router.post('/contacts', async (req, res, next) => {
+router.post('/', async (req, res) => {
   try{
-  const addContact = await addContactData(req.body);
+    await addContactData(req.body);
     
-  res.redirect('/contact');
-  req.flash('msg', addContact)
+    // Send message if success
+    req.flash('msg', 'Contact successfully added!');
+  
+    // Redirect to contact page
+    res.redirect('/contacts');
   } catch (err) {
     if (err) throw err;
+    
+    // Send message if fail
+    req.flash('msg', 'Contact failed to add!');
+
+    // Redirect to contact page
+    res.redirect('/contacts')
   }
-})
+});
+
+
+// Process: Contact Delete
 
 module.exports = router;
